@@ -209,3 +209,31 @@ colima start
 ```
 
 После этого шаги 3–7 выполняются без изменений, Docker CLI остаётся тем же.
+
+---
+
+## kubectl: подключение конфига кластера
+
+Готовый kubeconfig лежит в проекте:
+
+```
+/Users/rustamismagilov/Desktop/LMS/.kube/config
+```
+
+Его содержимое совпадает с выданной конфой: кластер `student-cluster`, сервер `https://80.242.57.239:6443`, namespace `student-fitnesssensei-test-user-service-ns`, user `student-fitnesssensei-test-user-service-ns-sa`.
+
+По умолчанию `kubectl` ищет конфиг в `~/.kube/config`, поэтому файл из проекта сам не подхватится. Выбран вариант 2 — прописать `KUBECONFIG` в fish один раз:
+
+```fish
+mkdir -p ~/.config/fish
+echo 'set -gx KUBECONFIG /Users/rustamismagilov/Desktop/LMS/.kube/config' >> ~/.config/fish/config.fish
+```
+
+Переменная будет подхватываться автоматически при каждом запуске терминала. Проверка:
+
+```fish
+source ~/.config/fish/config.fish
+kubectl get pods -n student-fitnesssensei-test-user-service-ns
+```
+
+Если `kubectl get pods` отработает без ошибки авторизации — конфиг подключён правильно.
