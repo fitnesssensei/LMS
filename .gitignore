@@ -1,2 +1,3 @@
 # Kubernetes kubeconfig — содержит токен, не коммитить
 .kube/config
+.gitignore

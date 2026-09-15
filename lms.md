@@ -1,5 +1,64 @@
 # LMS — сборка и запуск Docker-образа из терминала
 
+## Полезные команды Кубернетис ----
+
+kubectl port-forward <имя-пода> <локальный-порт>:<порт-пода>
+Например, если ваше приложение внутри контейнера слушает порт 8000:
+kubectl port-forward my-app-7d8b9f6c4-xk2pq 8000:8000  - все три строки !
+
+kubectl port-forward deployment/<имя-деплоймента> 8000:8000  - Можно не указывать конкретный под — kubectl сам выберет один из доступных
+
+curl http://localhost:8000/  - В отдельном терминале можно слать запросы как обычно
+
+## -----
+
+kubectl exec <имя-пода> -- env  - Выход
+kubectl exec <имя-пода> -- ls /app  - Выход
+
+## ------
+
+kubectl get pods  - список подов
+
+kubectl logs <имя-пода>  - логи пода
+
+kubectl top pods  - использование ресурсов подов
+
+kubectl logs -f <имя-пода>  - логи пода в реальном времени
+
+kubectl logs --tail=100 <имя-пода>  - последние N строк логов
+
+kubectl logs --since=1h <имя-пода>  - логи за последний час
+
+kubectl logs --previous <имя-пода>  - логи предыдущего контейнера
+
+kubectl get deployments  - Deployment управляет подами: следит за тем, сколько реплик должно быть запущено, и перезапускает их при падении.
+
+kubectl get deployments  - список деплойментов
+
+kubectl logs deployment/<имя-деплоймента>  - логи деплоймента
+
+kubectl get all  - все поды, деплойменты и сервисы одновременно
+
+kubectl describe pod <имя-пода> - подробная информация о поде(В выводе describe для пода всегда смотрите секцию Events в самом низу — там причина проблем.)
+
+kubectl get ingress  - содержит внешний хост.
+
+kubectl describe ingress <имя-ingress>  - подробная информация об ingress либо другой объекте
+
+## ------
+
+kubectl scale deployment/<имя-деплоймента> --replicas=0  - остановить все поды деплоймента, больше 0 запуск
+
+kubectl get pods  - список подов - No resources found
+
+## -------
+
+kubectl exec -it <имя-пода> -- /bin/sh  - открывает интерактивный shell внутри пода
+
+kubectl exec -it <имя-пода> -- /bin/bash  - открывает интерактивный shell внутри пода Если в образе есть bash
+
+## --------
+
 Инструкция для macOS (Apple Silicon), проект в `~/Desktop/LMS`.
 
 Состав проекта:
